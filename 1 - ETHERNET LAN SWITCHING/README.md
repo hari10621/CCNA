@@ -110,14 +110,4 @@ The switch learns source MAC addresses from received Ethernet frames and associa
 - ICMP ping connectivity testing
 - Dynamic MAC address learning and MAC address table inspection
 
-## Packet Tracer File
 
-Open `01-ethernet-lan-switching.pkt` with Cisco Packet Tracer to inspect and repeat the lab.
-
-## Result
-
-Configured a two-switch, four-PC Ethernet LAN. Verified PC0-to-PC3 connectivity and inspected the dynamic MAC address table on SW1.
-
-## Evidence
-
-Screenshots for the topology, switch configuration, PC addressing, connectivity test, and MAC address table are stored in the `screenshots/` directory.
