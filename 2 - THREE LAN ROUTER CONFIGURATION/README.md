@@ -1,330 +1,176 @@
-# 
+# Lab 02 – Three LAN Router Configuration
 
-# \# CCNA Lab – Single Router, Three LANs
+## Objective
 
-# 
+Build and configure three separate Ethernet LANs using one Cisco 2911 router, three Cisco 2960 switches and six PCs. Assign different IPv4 subnets to each LAN, configure router interfaces as default gateways, and verify connectivity between the networks using ICMP ping tests.
 
-# \## 1. Project Overview
+## Tools and Components
 
-# 
+| Component | Quantity |
+|---|---:|
+| Cisco 2911 Router | 1 |
+| Cisco 2960 Switch | 3 |
+| PC-PT | 6 |
+| Copper Straight-Through cable | 9 |
+| Cisco Packet Tracer | 1 |
 
-# This project demonstrates the configuration of three separate Local Area Networks (LANs) using a single Cisco router in Cisco Packet Tracer.
+## Network Topology
 
-# 
+One router connects three independent LANs through three GigabitEthernet interfaces. Each LAN contains one Cisco 2960 switch connected to two PCs.
 
-# Each LAN contains one switch and two PCs. The router provides communication between the three different networks.
+![Three LAN router topology](Screenshots/01-Network-Topology.png)
 
-# 
+### Network Connections
 
-# \## 2. Network Topology
+| Device A | Router Port | Device B |
+|---|---|---|
+| R1 | GigabitEthernet0/0 | SW1 |
+| R1 | GigabitEthernet0/1 | SW2 |
+| R1 | GigabitEthernet0/2 | SW3 |
 
-# 
+Each switch connects to two PCs using Copper Straight-Through cables.
 
-# !\[Network Topology](Screenshots/01-Network-Topology.png)
+## IP Addressing
 
-# 
+Three different IPv4 subnets were configured, one for each LAN.
 
-# \### Devices Used
+| LAN | Device | IPv4 Address | Subnet Mask | Default Gateway |
+|---|---|---|---|---|
+| Green | R1 (G0/0) | 192.168.10.1 | 255.255.255.0 | — |
+| Green | PC0 | 192.168.10.3 | 255.255.255.0 | 192.168.10.1 |
+| Green | PC1 | 192.168.10.2 | 255.255.255.0 | 192.168.10.1 |
+| Blue | R1 (G0/1) | 192.168.20.1 | 255.255.255.0 | — |
+| Blue | PC4 | 192.168.20.3 | 255.255.255.0 | 192.168.20.1 |
+| Blue | PC5 | 192.168.20.2 | 255.255.255.0 | 192.168.20.1 |
+| Orange | R1 (G0/2) | 192.168.30.1 | 255.255.255.0 | — |
+| Orange | PC2 | 192.168.30.2 | 255.255.255.0 | 192.168.30.1 |
+| Orange | PC3 | 192.168.30.3 | 255.255.255.0 | 192.168.30.1 |
 
-# 
+All PCs use the subnet mask `255.255.255.0`.
 
-# \- 1 × Cisco 2911 Router (R1)
+![PC IP configuration](Screenshots/07-PC-IP-Configuration.png)
 
-# \- 3 × Cisco 2960 Switches (SW1, SW2, SW3)
+## Router Configuration
 
-# \- 6 × PCs
+The router was configured with three separate GigabitEthernet interfaces. Each interface acts as the default gateway for its respective LAN.
 
-# \- Copper Straight-Through Cables
+### Router R1 – Initial Configuration
 
-# \- Cisco Packet Tracer
+```cisco
+enable
+configure terminal
+hostname R1
+```
 
-# 
+### Interface G0/0 – Green LAN
 
-# \## 3. IP Addressing Table
+```cisco
+interface gigabitEthernet 0/0
+description GREEN_LAN_SW1
+ip address 192.168.10.1 255.255.255.0
+no shutdown
+exit
+```
 
-# 
+![Router G0/0 configuration](Screenshots/03-Router-G0-0-Configuration.png)
 
-# | LAN | Switch | Router Interface | Gateway | Network |
+### Interface G0/1 – Blue LAN
 
-# |---|---|---|---|---|
+```cisco
+interface gigabitEthernet 0/1
+description BLUE_LAN_SW2
+ip address 192.168.20.1 255.255.255.0
+no shutdown
+exit
+```
 
-# | Green LAN | SW1 | G0/0 | 192.168.10.1 | 192.168.10.0/24 |
+![Router G0/1 configuration](Screenshots/04-Router-G0-1-Configuration.png)
 
-# | Blue LAN | SW2 | G0/1 | 192.168.20.1 | 192.168.20.0/24 |
+### Interface G0/2 – Orange LAN
 
-# | Orange LAN | SW3 | G0/2 | 192.168.30.1 | 192.168.30.0/24 |
+```cisco
+interface gigabitEthernet 0/2
+description ORANGE_LAN_SW3
+ip address 192.168.30.1 255.255.255.0
+no shutdown
+exit
+```
 
-# 
+![Router G0/2 configuration](Screenshots/05-Router-G0-2-Configuration.png)
 
-# \### PC IP Allocation
+### Save Configuration
 
-# 
+```cisco
+end
+copy running-config startup-config
+```
 
-# | PC | LAN | IP Address | Subnet Mask | Default Gateway |
+## Router Interface Verification
 
-# |---|---|---|---|---|
+The router interfaces were verified using:
 
-# | PC0 | Green | 192.168.10.3 | 255.255.255.0 | 192.168.10.1 |
+```cisco
+show ip interface brief
+```
 
-# | PC1 | Green | 192.168.10.2 | 255.255.255.0 | 192.168.10.1 |
+The captured output confirms that all three GigabitEthernet interfaces are operational.
 
-# | PC4 | Blue | 192.168.20.3 | 255.255.255.0 | 192.168.20.1 |
+| Interface | IPv4 Address | Status | Protocol |
+|---|---|---|---|
+| G0/0 | 192.168.10.1 | up | up |
+| G0/1 | 192.168.20.1 | up | up |
+| G0/2 | 192.168.30.1 | up | up |
 
-# | PC5 | Blue | 192.168.20.2 | 255.255.255.0 | 192.168.20.1 |
+![Router interface verification](Screenshots/06-Router-Interface-Verification.png)
 
-# | PC2 | Orange | 192.168.30.2 | 255.255.255.0 | 192.168.30.1 |
+## Connectivity Verification
 
-# | PC3 | Orange | 192.168.30.3 | 255.255.255.0 | 192.168.30.1 |
+ICMP ping commands were used to test communication between PCs in the same LAN and across different LANs.
 
-# 
+### Same LAN Communication
 
-# \## 4. Router Configuration
+From PC0 to PC1:
 
-# 
+```cmd
+ping 192.168.10.2
+```
 
-# \### Initial Router Interface Status
+Result: Successful. Four packets received with 0% packet loss.
 
-# 
+### Green LAN to Blue LAN
 
-# !\[Initial Router Status](Screenshots/02-Initial-Router-Interface-Status.png)
+From PC0 to PC5:
 
-# 
+```cmd
+ping 192.168.20.2
+```
 
-# \### Configure Router G0/0 – Green LAN
+Result: Unsuccessful in the captured test.
 
-# 
+### Green LAN to Orange LAN
 
-# ```cisco
+From PC0 to PC2:
 
-# enable
+```cmd
+ping 192.168.30.2
+```
 
-# configure terminal
+Result: Unsuccessful in the captured test.
 
-# hostname R1
+![Ping connectivity test results](Screenshots/08-Ping-Test-Results.png)
 
-# 
+**Troubleshooting Note:** The captured PC IP configuration shows default gateways as `0.0.0.0`. The correct gateway addresses must be configured on all six PCs before successful inter-LAN communication can be verified.
 
-# interface gigabitEthernet 0/0
+## Concepts Practised
 
-# description GREEN\_LAN\_SW1
-
-# ip address 192.168.10.1 255.255.255.0
-
-# no shutdown
-
-# exit
-
-# ```
-
-# 
-
-# !\[G0/0 Configuration](Screenshots/03-Router-G0-0-Configuration.png)
-
-# 
-
-# \### Configure Router G0/1 – Blue LAN
-
-# 
-
-# ```cisco
-
-# interface gigabitEthernet 0/1
-
-# description BLUE\_LAN\_SW2
-
-# ip address 192.168.20.1 255.255.255.0
-
-# no shutdown
-
-# exit
-
-# ```
-
-# 
-
-# !\[G0/1 Configuration](Screenshots/04-Router-G0-1-Configuration.png)
-
-# 
-
-# \### Configure Router G0/2 – Orange LAN
-
-# 
-
-# ```cisco
-
-# interface gigabitEthernet 0/2
-
-# description ORANGE\_LAN\_SW3
-
-# ip address 192.168.30.1 255.255.255.0
-
-# no shutdown
-
-# exit
-
-# ```
-
-# 
-
-# !\[G0/2 Configuration](Screenshots/05-Router-G0-2-Configuration.png)
-
-# 
-
-# \### Save Configuration
-
-# 
-
-# ```cisco
-
-# end
-
-# copy running-config startup-config
-
-# ```
-
-# 
-
-# \## 5. Router Interface Verification
-
-# 
-
-# Command used:
-
-# 
-
-# ```cisco
-
-# show ip interface brief
-
-# ```
-
-# 
-
-# Expected interface configuration:
-
-# 
-
-# | Interface | IP Address | Status | Protocol |
-
-# |---|---|---|---|
-
-# | G0/0 | 192.168.10.1 | up | up |
-
-# | G0/1 | 192.168.20.1 | up | up |
-
-# | G0/2 | 192.168.30.1 | up | up |
-
-# 
-
-# !\[Router Interface Verification](Screenshots/06-Router-Interface-Verification.png)
-
-# 
-
-# \## 6. PC IP Configuration
-
-# 
-
-# All six PCs are configured with static IPv4 addresses.
-
-# 
-
-# !\[PC IP Configuration](Screenshots/07-PC-IP-Configuration.png)
-
-# 
-
-# \## 7. Connectivity Testing
-
-# 
-
-# Ping commands used:
-
-# 
-
-# \### Same LAN Communication
-
-# 
-
-# ```cmd
-
-# ping 192.168.10.2
-
-# ```
-
-# 
-
-# PC0 to PC1.
-
-# 
-
-# Result: Successful – 4 packets received, 0% packet loss.
-
-# 
-
-# \### Green LAN to Blue LAN
-
-# 
-
-# ```cmd
-
-# ping 192.168.20.2
-
-# ```
-
-# 
-
-# Result: Failed in the captured test.
-
-# 
-
-# \### Green LAN to Orange LAN
-
-# 
-
-# ```cmd
-
-# ping 192.168.30.2
-
-# ```
-
-# 
-
-# Result: Failed in the captured test.
-
-# 
-
-# !\[Ping Test Results](Screenshots/08-Ping-Test-Results.png)
-
-# 
-
-# \*\*Note:\*\* The captured PC IP configuration shows default gateways as `0.0.0.0`. These must be corrected to the gateway addresses in the IP allocation table before successful inter-LAN communication can be verified.
-
-# 
-
-# \## 8. Skills Demonstrated
-
-# 
-
-# \- Cisco IOS CLI Configuration
-
-# \- Router Interface Configuration
-
-# \- IPv4 Addressing
-
-# \- Subnet Mask Configuration
-
-# \- LAN Segmentation
-
-# \- Default Gateway Configuration
-
-# \- Network Connectivity Testing
-
-# \- ICMP Ping
-
-# \- Basic Network Troubleshooting
-
-# 
-
-# 
-
+- Cisco Router CLI Configuration
+- GigabitEthernet Interface Configuration
+- IPv4 Addressing and Subnet Masks
+- Three Separate LAN Networks
+- Default Gateway Configuration
+- Router-Based Inter-LAN Routing
+- Interface Status Verification
+- ICMP Ping Connectivity Testing
+- Basic Network Troubleshooting
 
 
