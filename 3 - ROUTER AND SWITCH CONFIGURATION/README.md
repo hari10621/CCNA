@@ -2,52 +2,52 @@
 
 ## Objective
 
-Build and configure a small Ethernet LAN using one Cisco 2911 router, two Cisco 2960 switches and four PCs. Configure hostnames, IP addresses, interface speed, duplex mode, interface descriptions and interface activation. Configure static IPv4 addresses on all PCs and verify network connectivity.
+Build and configure a small Ethernet LAN using one Cisco 2911 router, two Cisco 2960 switches and four PCs. Configure router and switch hostnames, IP addressing, interface speed, duplex mode, interface descriptions and interface activation. Configure static IPv4 addresses on all PCs and verify network connectivity.
 
 ## Tools and Components
 
- Component  Quantity 
-------
- Cisco 2911 Router  1 
- Cisco 2960 Switch  2 
- PC-PT  4 
- Copper Straight-Through cable  6 
- Cisco Packet Tracer  1 
+| Component | Quantity |
+|---|---:|
+| Cisco 2911 Router | 1 |
+| Cisco 2960 Switch | 2 |
+| PC-PT | 4 |
+| Copper Straight-Through cable | 6 |
+| Cisco Packet Tracer | 1 |
 
 ## Network Topology
 
 One router is connected to Switch 1. Switch 1 is connected to Switch 2, with two PCs connected to each switch.
 
-![Network Topology](Screenshots01-Network-Topology.png)
+![Network Topology](screenshots/01-Network-Topology.png.png)
 
 ### Cable Connections
 
- Device A  Port  Device B  Port 
-------------
- Router R1  GigabitEthernet00  SW1  GigabitEthernet01 
- SW1  GigabitEthernet02  SW2  GigabitEthernet01 
- PC0  FastEthernet0  SW1  Fa01 
- PC1  FastEthernet0  SW1  Fa02 
- PC2  FastEthernet0  SW2  Fa01 
- PC3  FastEthernet0  SW2  Fa02 
+| Device A | Port | Device B | Port |
+|---|---|---|---|
+| Router R1 | GigabitEthernet0/0 | SW1 | GigabitEthernet0/1 |
+| SW1 | GigabitEthernet0/2 | SW2 | GigabitEthernet0/1 |
+| PC0 | FastEthernet0 | SW1 | Fa0/1 |
+| PC1 | FastEthernet0 | SW1 | Fa0/2 |
+| PC2 | FastEthernet0 | SW2 | Fa0/1 |
+| PC3 | FastEthernet0 | SW2 | Fa0/2 |
 
 All links use Copper Straight-Through cables.
 
 ## IP Addressing
 
- Device  Interface  IPv4 Address  Subnet Mask 
-------------
- R1  GigabitEthernet00  192.168.1.1  255.255.255.0 
- SW1  VLAN 1  192.168.1.2  255.255.255.0 
- SW2  VLAN 1  192.168.1.3  255.255.255.0 
- PC0  FastEthernet0  192.168.1.10  255.255.255.0 
- PC1  FastEthernet0  192.168.1.11  255.255.255.0 
- PC2  FastEthernet0  192.168.1.12  255.255.255.0 
- PC3  FastEthernet0  192.168.1.13  255.255.255.0 
+| Device | Interface | IPv4 Address | Subnet Mask |
+|---|---|---|---|
+| R1 | GigabitEthernet0/0 | 192.168.1.1 | 255.255.255.0 |
+| SW1 | VLAN 1 | 192.168.1.2 | 255.255.255.0 |
+| SW2 | VLAN 1 | 192.168.1.3 | 255.255.255.0 |
+| PC0 | FastEthernet0 | 192.168.1.10 | 255.255.255.0 |
+| PC1 | FastEthernet0 | 192.168.1.11 | 255.255.255.0 |
+| PC2 | FastEthernet0 | 192.168.1.12 | 255.255.255.0 |
+| PC3 | FastEthernet0 | 192.168.1.13 | 255.255.255.0 |
 
-All devices are configured within the same subnet (192.168.1.024). The router acts as the default gateway (192.168.1.1).
+All devices are configured within the same subnet (192.168.1.0/24). The router acts as the default gateway (192.168.1.1).
 
-![PC IP Configuration](Screenshots06-PC-IP-Configuration.png)
+![PC IP Configuration](screenshots/06-PC-IP-Configuration.png.png)
 
 ## Router Configuration
 
@@ -60,7 +60,7 @@ enable
 configure terminal
 hostname R1
 
-interface gigabitEthernet 00
+interface gigabitEthernet 0/0
 description Connection_to_SW1
 ip address 192.168.1.1 255.255.255.0
 speed 1000
@@ -72,19 +72,19 @@ end
 write memory
 ```
 
-![Router Configuration](Screenshots02-Router-Configuration.png)
+![Router Configuration](screenshots/02-Router-Configuration.png.png)
 
 ### Router Interface Verification
 
-The router interface configuration was verified using
+The router interface configuration was verified using:
 
 ```cisco
 show ip interface brief
 ```
 
-The GigabitEthernet00 interface is configured with the IP address 192.168.1.1.
+The GigabitEthernet0/0 interface is configured with the IP address 192.168.1.1.
 
-![Router Interface Verification](Screenshots03-Router-Interface-Verification.png)
+![Router Interface Verification](screenshots/03-Router-Interface-Verification.png.png)
 
 ## Switch Configuration
 
@@ -97,21 +97,21 @@ enable
 configure terminal
 hostname SW1
 
-interface gigabitEthernet 01
+interface gigabitEthernet 0/1
 description Connection_to_R1
 speed 1000
 duplex full
 no shutdown
 exit
 
-interface gigabitEthernet 02
+interface gigabitEthernet 0/2
 description Connection_to_SW2
 speed 1000
 duplex full
 no shutdown
 exit
 
-interface range fastEthernet 01-2
+interface range fastEthernet 0/1-2
 description Connections_to_PC0_and_PC1
 speed 100
 duplex full
@@ -129,7 +129,7 @@ end
 write memory
 ```
 
-![SW1 Configuration](Screenshots04-SW1-Configuration.png)
+![SW1 Configuration](screenshots/04-SW1-Configuration.png.png)
 
 ### SW2
 
@@ -138,14 +138,14 @@ enable
 configure terminal
 hostname SW2
 
-interface gigabitEthernet 01
+interface gigabitEthernet 0/1
 description Connection_to_SW1
 speed 1000
 duplex full
 no shutdown
 exit
 
-interface range fastEthernet 01-2
+interface range fastEthernet 0/1-2
 description Connections_to_PC2_and_PC3
 speed 100
 duplex full
@@ -163,7 +163,7 @@ end
 write memory
 ```
 
-![SW2 Configuration](Screenshots05-SW2-Configuration.png)
+![SW2 Configuration](screenshots/05-SW2-Configuration.png.png)
 
 The `hostname` command identifies each network device. The `description` command documents the purpose of an interface. The `speed` and `duplex` commands configure interface operation, while `no shutdown` enables the interface.
 
@@ -180,15 +180,13 @@ Static IPv4 addresses and subnet masks were assigned through the graphical inter
 - PC2 – 192.168.1.12
 - PC3 – 192.168.1.13
 
-Default Gateway 192.168.1.1
+Default Gateway: 192.168.1.1
 
-![PC IP Configuration](Screenshots06-PC-IP-Configuration.png)
+![PC IP Configuration](screenshots/06-PC-IP-Configuration.png.png)
 
 ## Connectivity Verification
 
-Network connectivity between the PCs and router can be verified using the ping command from the PC Command Prompt.
-
-Example
+Network connectivity between the PCs and router was tested using the ping command from the PC Command Prompt.
 
 ```text
 ping 192.168.1.11
@@ -199,7 +197,7 @@ ping 192.168.1.1
 
 These tests verify connectivity between devices connected to both switches and the router.
 
-![Network Connectivity Test](Screenshots07-Network-Connectivity-Test.png)
+![Network Connectivity Test](screenshots/07-Network-Connectivity-Test.png.png)
 
 ## Concepts Practised
 
