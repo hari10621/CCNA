@@ -47,7 +47,7 @@ All links use Copper Straight-Through cables.
 
 All devices are configured within the same subnet (192.168.1.0/24). The router acts as the default gateway (192.168.1.1).
 
-![PC IP Configuration](screenshots/06-PC-IP-Configuration.png.png)
+
 
 ## Router Configuration
 
