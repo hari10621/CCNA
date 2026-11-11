@@ -13,8 +13,7 @@ This lab demonstrates subnet allocation, default gateways, router interface conf
 | Cisco 2911 router | 2 |
 | Cisco 2960-24TT switch | 4 |
 | PC-PT | 4 |
-| Copper Ethernet cables | 9 |
-| Cisco Packet Tracer | 1 |
+
 
 ## Network Topology
 
@@ -30,15 +29,15 @@ The topology contains four LANs connected through two routers:
 
 | Device A | Interface | Device B | Interface | Cable |
 |---|---|---|---|---|
-| PC0 | FastEthernet0 | Switch0 | FastEthernet0/1 | Copper Straight-Through |
-| Switch0 | FastEthernet0/24 | Router0 | GigabitEthernet0/0 | Copper Straight-Through |
-| PC1 | FastEthernet0 | Switch1 | FastEthernet0/1 | Copper Straight-Through |
-| Switch1 | FastEthernet0/24 | Router1 | GigabitEthernet0/0 | Copper Straight-Through |
-| PC2 | FastEthernet0 | Switch2 | FastEthernet0/1 | Copper Straight-Through |
-| Switch2 | FastEthernet0/24 | Router0 | GigabitEthernet0/1 | Copper Straight-Through |
-| PC3 | FastEthernet0 | Switch3 | FastEthernet0/1 | Copper Straight-Through |
-| Switch3 | FastEthernet0/24 | Router1 | GigabitEthernet0/1 | Copper Straight-Through |
-| Router0 | GigabitEthernet0/2 | Router1 | GigabitEthernet0/2 | Copper Cross-Over |
+| PC0 | FastEthernet0 | Switch0 | FastEthernet0/1 
+| Switch0 | FastEthernet0/24 | Router0 | GigabitEthernet0/0
+| PC1 | FastEthernet0 | Switch1 | FastEthernet0/1 
+| Switch1 | FastEthernet0/24 | Router1 | GigabitEthernet0/0 
+| PC2 | FastEthernet0 | Switch2 | FastEthernet0/1
+| Switch2 | FastEthernet0/24 | Router0 | GigabitEthernet0/1 
+| PC3 | FastEthernet0 | Switch3 | FastEthernet0/1 
+| Switch3 | FastEthernet0/24 | Router1 | GigabitEthernet0/1 
+| Router0 | GigabitEthernet0/2 | Router1 | GigabitEthernet0/2 
 
 The four switches operate as Layer 2 access switches. No switch CLI configuration is required for this basic routed-LAN lab.
 
@@ -234,14 +233,4 @@ tracert <destination-ip>
 
 Configured a four-LAN network using two Cisco 2911 routers and four Cisco 2960 switches. IPv4 addressing was assigned to all four PCs and router interfaces, and static routes were added between the routers. The captured end-to-end ping from PC0 (`192.168.10.2`) to PC3 (`192.168.10.26`) succeeded with 4 packets received and 0% packet loss.
 
-## Important VLSM Capacity Note
 
-The screenshots included with this lab document the working `/29` LAN configuration. A `/29` subnet provides only 6 usable host addresses per LAN, so this captured configuration does **not** yet demonstrate the later proposed allocation for 255 end devices across the four LANs.
-
-For the 255-device design, the planned distribution is Blue: 100, Green: 75, Red: 50, and Yellow: 30 end devices. That design requires `/25`, `/25`, `/26`, and `/26` LAN subnets respectively, plus a `/30` WAN subnet. The router, PC, and static-route configurations and screenshots must be updated to those networks before claiming the 255-device VLSM design is implemented.
-
-## Evidence and Lab Files
-
-- Screenshots are stored in the `screenshots/` directory.
-- Store the Cisco Packet Tracer project file in this lab directory, for example as `vlsm-static-routing.pkt`.
-- Keep the router configuration text files alongside the README if exported separately.
