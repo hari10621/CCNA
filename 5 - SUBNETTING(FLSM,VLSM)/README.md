@@ -27,8 +27,8 @@ The topology contains four LANs connected through two routers:
 
 ## Cable Connections
 
-| Device A | Interface | Device B | Interface | Cable |
-|---|---|---|---|---|
+| Device A | Interface | Device B | Interface 
+|---|---|---|
 | PC0 | FastEthernet0 | Switch0 | FastEthernet0/1 
 | Switch0 | FastEthernet0/24 | Router0 | GigabitEthernet0/0
 | PC1 | FastEthernet0 | Switch1 | FastEthernet0/1 
