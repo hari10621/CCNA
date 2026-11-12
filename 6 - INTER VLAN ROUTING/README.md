@@ -245,10 +245,4 @@ Additional recommended tests:
 - VLAN verification using `show vlan brief`
 - Connectivity verification using ICMP ping
 
-## Important Notes
 
-- This lab uses three separate physical router interfaces.
-- Each router-facing switch port is an access port in its corresponding VLAN.
-- No trunk link is configured between the router and switch.
-- No router subinterfaces or `encapsulation dot1Q` commands are used.
-- The successful PC0-to-PC4 ping is the recorded evidence of inter-VLAN communication.
