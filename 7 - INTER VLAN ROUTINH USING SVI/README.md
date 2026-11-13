@@ -1,12 +1,6 @@
 
 # Inter-VLAN Routing Using Switch Virtual Interfaces (SVI)
 
-**Lab No:** 07  
-**Domain:** Computer Networks – CCNA  
-**Platform:** Cisco Packet Tracer  
-**Main Topic:** Inter-VLAN Routing Using SVI on a Layer 3 Switch
-
----
 
 ## 1. Objective
 
@@ -370,22 +364,3 @@ Through this practical implementation, the following concepts were understood an
 
 ---
 
-## 9. Packet Tracer Project Files
-
-| File | Description |
-|---|---|
-| `ROUTING WITH SVI.pkt` | Cisco Packet Tracer network topology and configuration |
-| `README.md` | Lab documentation |
-| `screenshots/` | Practical configuration and verification evidence |
-
-The Packet Tracer project file is included in this repository folder.
-
----
-
-## 10. Conclusion
-
-Successfully designed and configured a network using three VLANs and a Cisco 3560 multilayer switch.
-
-Switch Virtual Interfaces (SVIs) were configured as default gateways, and Layer 3 routing was enabled to facilitate communication between different VLANs.
-
-The lab demonstrates the implementation of SVI-based inter-VLAN routing and the role of a multilayer switch in routing traffic between logically segmented networks.
