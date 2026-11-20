@@ -1,4 +1,4 @@
-# Lab 01 – Spanning Tree Protocol (STP) Fundamentals
+# Spanning Tree Protocol (STP) Fundamentals
 
 ## Objective
 
