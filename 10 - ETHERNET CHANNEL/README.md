@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-@'
-=======
->>>>>>> a68384e (update reamdme.md)
 # EtherChannel Configuration – PAgP (Cisco Packet Tracer)
 
 ## 1. Objective
@@ -10,26 +6,26 @@ Configure and verify EtherChannel using PAgP (Port Aggregation Protocol) between
 
 ### Objectives
 
-<<<<<<< HEAD
+
 - Understand EtherChannel.
 - Configure PAgP between two switches.
 - Combine two physical links into a single logical Port-channel.
 - Verify EtherChannel formation.
 - Understand PAgP negotiation.
 - Verify the configured EtherChannel.
-=======
+
 - Understand EtherChannel and its purpose.
 - Configure PAgP between two switches.
 - Combine two physical interfaces into a single logical interface.
 - Configure PAgP Desirable and Auto modes.
 - Verify EtherChannel formation on both switches.
->>>>>>> a68384e (update reamdme.md)
+
 
 ---
 
 ## 2. Network Architecture
 
-<<<<<<< HEAD
+
 The topology consists of two Cisco switches connected through two physical links. These links are bundled into a single logical EtherChannel using PAgP. PCs are connected to both switches to verify network connectivity.
 
 ### Devices Used
@@ -51,7 +47,7 @@ The network consists of two Cisco 2960 switches connected using two physical Eth
 | Switch 2 | SW2 | Cisco 2960 |
 | PC 1 | PC1 | PC-PT |
 | PC 2 | PC2 | PC-PT |
->>>>>>> a68384e (update reamdme.md)
+
 
 ### Cable Connections
 
@@ -62,7 +58,7 @@ The network consists of two Cisco 2960 switches connected using two physical Eth
 | SW1 | FastEthernet0/2 | SW2 | FastEthernet0/2 |
 | PC2 | FastEthernet0 | SW2 | FastEthernet0/3 |
 
-<<<<<<< HEAD
+
 The two physical links between SW1 and SW2 are combined into Port-channel 1.
 
 ### Architecture Screenshot
@@ -87,13 +83,13 @@ The two physical links between SW1 and SW2 are combined into a single logical in
 **Screenshot 01 – Network Architecture**
 
 This screenshot shows PC1 connected to SW1, PC2 connected to SW2, and the two physical links connecting both switches.
->>>>>>> a68384e (update reamdme.md)
+
 
 ---
 
 ## 3. IP Address Configuration
 
-<<<<<<< HEAD
+
 Both PCs are configured with static IP addresses in the same network.
 
 | Device | Interface | IP Address | Subnet Mask | Default Gateway |
@@ -157,7 +153,7 @@ Both PCs belong to the network `192.168.10.0/24`.
 ## 4. SW1 Configuration – PAgP Desirable
 
 SW1 is configured using PAgP Desirable mode to actively initiate EtherChannel negotiation.
->>>>>>> a68384e (update reamdme.md)
+
 
 ### Configuration Commands
 
@@ -371,21 +367,7 @@ Desirable and Auto modes are compatible because Desirable initiates negotiation 
 
 ---
 
-## 11. Benefits of EtherChannel
 
-- **Increased aggregate bandwidth:** Combines multiple physical links into a logical link.
-- **Redundancy:** Provides alternative physical paths within the bundle.
-- **Improved network resiliency:** Helps maintain connectivity if one bundled physical link fails.
-- **Simplified management:** Multiple physical links are managed as a single logical interface.
-- **Load distribution:** Traffic can be distributed across bundled links according to the switch's hashing algorithm.
-
----
-
-## 12. Conclusion
-
-PAgP EtherChannel was configured between SW1 and SW2 using two physical Ethernet interfaces.
-
-SW1 was configured with PAgP Desirable mode, while SW2 was configured with PAgP Auto mode. Both physical interfaces were successfully bundled into Port-channel 1.
 
 The EtherChannel configuration was verified independently on both switches using `show etherchannel summary`. The verification output showed Port-channel 1 in the `SU` state and both physical interfaces marked `(P)`.
 
