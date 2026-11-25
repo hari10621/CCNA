@@ -1,4 +1,4 @@
-# CCNA Lab 11 – EIGRP Dynamic Routing Configuration
+#EIGRP Dynamic Routing Configuration
 
 ## 1. Project Overview
 
